@@ -1,5 +1,5 @@
 export const color1 = '#5AC7A0';
-export const color2 = '#53  A9A0';
+export const color2 = '#53A9A0';
 export const color3 = '#4C8CA0';
 export const color4 = '#466FA1';
 export const white = '#FFFFFF';
@@ -75,4 +75,4 @@ export const contentContainerStyle = {
   alignItems: 'center',
 };
 
-export const textStyle = {fontSize: 32, color: black, fontRegular};
+export const textStyle = { fontSize: 32, color: black, fontBold };
