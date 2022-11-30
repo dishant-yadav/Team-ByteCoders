@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Geolocation from 'react-native-geolocation-service';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage'; 
 
 import Buttons from '../components/Buttons.js';
 import {
@@ -24,6 +24,15 @@ import {
   scrollViewStyle,
   contentContainerStyle,
 } from '../globalStyles.js';
+
+const setID = async id => {
+  try {
+    await AsyncStorage.setItem('ownerID', JSON.stringify(id));
+    console.log('Data Saved');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 const loginUser = async (email, pass) => {
   const requestOptions = {
@@ -40,6 +49,7 @@ const loginUser = async (email, pass) => {
   );
   const data = await response.json();
   console.log(data);
+  setID(data.data);
   if (data.success === true) {
     console.log(data.data);
     return true;
@@ -59,7 +69,7 @@ const requestLocationPermission = async () => {
         buttonPositive: 'OK',
       },
     );
-    console.log('granted', granted);
+    // console.log('granted', granted);
     if (granted === 'granted') {
       console.log('You can use Geolocation');
       return true;
@@ -72,14 +82,14 @@ const requestLocationPermission = async () => {
   }
 };
 
-// const storeCoordinates = async () => {
-//   try {
-//     await AsyncStorage.setItem('location', JSON.stringify(coordinates));
-//     console.log('Data Saved');
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+const storeCoordinates = async coordinates => {
+  try {
+    await AsyncStorage.setItem('location', JSON.stringify(coordinates));
+    console.log('Data Saved');
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // const getCoordinates = async () => {
 //   try {
@@ -96,7 +106,8 @@ let coords = [];
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [location, setLocation] = useState([]);
+  const [location, setLocation] = useState([0, 0]);
+  const [id, setId] = useState('');
 
   // function to check permissions and get Location
   const getLocation = () => {
@@ -105,11 +116,18 @@ const Login = ({navigation}) => {
       console.log('res is:', res);
       if (res) {
         Geolocation.getCurrentPosition(
-          position => {
-            setLocation([position.coords.latitude, position.coords.longitude]);
-            console.log(location);
-            return location;
-            // console.log('location got');
+          async position => {
+            () =>
+              setLocation([
+                position.coords.latitude,
+                position.coords.longitude,
+              ]);
+            console.log([position.coords.latitude, position.coords.longitude]);
+            await storeCoordinates([
+              position.coords.latitude,
+              position.coords.longitude,
+            ]);
+            console.log('location got');
           },
           error => {
             // See error code charts below.
@@ -161,7 +179,7 @@ const Login = ({navigation}) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#ededed',
-              width: '95%',
+              width: '100%',
               borderRadius: 10,
               height: 60,
               paddingLeft: 20,
@@ -183,7 +201,7 @@ const Login = ({navigation}) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#ededed',
-              width: '95%',
+              width: '100%',
               borderRadius: 10,
               height: 60,
               paddingLeft: 20,
@@ -200,17 +218,19 @@ const Login = ({navigation}) => {
             />
           </View>
 
-          <Buttons
-            btn_text={'Login'}
-            on_press={async () => {
-              console.log('Clicked Login');
-              const success = await loginUser(email, password);
-              if (success) {
-                console.log(getLocation());
-                navigation.navigate('MainContainer');
-              }
-            }}
-          />
+          <View style={{width: '110%'}}>
+            <Buttons
+              btn_text={'Login'}
+              on_press={async () => {
+                console.log('Clicked Login');
+                const success = await loginUser(email, password);
+                if (success) {
+                  console.log(getLocation());
+                  navigation.replace('MainContainer');
+                }
+              }}
+            />
+          </View>
         </View>
       </View>
 
