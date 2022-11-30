@@ -16,8 +16,8 @@ import scrollViewStyle, {
 
 const Splash = ({navigation}) => {
   setTimeout(() => {
-    navigation.replace('Onboarding');
-  }, 1000);
+    navigation.replace('MainContainer');
+  }, 500);
   return (
     <ScrollView style={scrollViewStyle}>
       <StatusBar
