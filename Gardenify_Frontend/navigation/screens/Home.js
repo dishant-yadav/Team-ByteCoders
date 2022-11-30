@@ -122,7 +122,7 @@ const Home = ({navigation}) => {
           ...shadow2,
         }}>
         <Card
-          onPress={() => openQRScanner}
+          onPress={() => navigation.navigate("QRCode")}
           style={{
             height: 200,
             backgroundColor: color2,
