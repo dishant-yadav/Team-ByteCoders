@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -56,7 +56,7 @@ function MainContainer() {
         options={{
           headerShown: false,
           tabBarIcon: data => {
-            return <Ionicons name="list" size={30} color="black" />;
+            return <Ionicons name="add" size={30} color="black" />;
           },
         }}
       />
@@ -66,7 +66,7 @@ function MainContainer() {
         options={{
           headerShown: false,
           tabBarIcon: data => {
-            return <Ionicons name="add" size={30} color="black" />;
+            return <Ionicons name="list" size={30} color="black" />;
           },
         }}
       />

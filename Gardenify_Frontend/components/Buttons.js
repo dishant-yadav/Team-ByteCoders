@@ -7,7 +7,7 @@ const Buttons = ({on_press, btn_text}) => {
     <TouchableOpacity
       style={{
         justifyContent: 'center',
-        width: '95%',
+        width: '90%',
         backgroundColor: color1,
         height: 50,
         marginVertical: 30,

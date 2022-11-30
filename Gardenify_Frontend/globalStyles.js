@@ -2,7 +2,7 @@ export const color1 = '#5AC7A0';
 export const color2 = '#53A9A0';
 export const color3 = '#4C8CA0';
 export const color4 = '#466FA1';
-export const white = '#FFFFFF';
+export const white = '#F0F0F4';
 export const black = '#000000';
 export const grey = '#A9A9A9';
 
@@ -74,4 +74,9 @@ export const contentContainerStyle = {
   alignItems: 'center',
 };
 
-export const textStyle = {fontSize: 32, color: black, fontBold};
+export const textStyle = {
+  fontSize: 32,
+  color: black,
+  fontBold,
+  textAlign: 'center',
+};
