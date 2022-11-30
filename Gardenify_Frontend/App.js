@@ -1,23 +1,22 @@
 import React from 'react';
-import {StyleSheet, Text, View, ScrollView} from 'react-native';
-import {
-  scrollViewStyle,
-  contentContainerStyle,
-  textStyle,
-} from './globalStyles';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Splash, Onboarding, Login, SignUp} from './pages';
 
 const App = () => {
+
+  const Stack = createNativeStackNavigator();
+
   return (
-    <ScrollView
-      style={scrollViewStyle}
-      contentContainerStyle={contentContainerStyle}>
-      <View>
-        <Text style={textStyle}>App</Text>
-      </View>
-    </ScrollView>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{headerShown: false}}>
+        <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Onboarding" component={Onboarding} />
+        <Stack.Screen name="Login" component={Login} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({});
 
 export default App;
