@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import { Splash, Onboarding, Login, SignUp, Home } from './pages';
+import {Splash, Onboarding, Login, SignUp, Home} from './pages';
 
 const App = () => {
   const Stack = createNativeStackNavigator();

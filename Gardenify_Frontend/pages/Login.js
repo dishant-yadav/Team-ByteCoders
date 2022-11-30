@@ -24,13 +24,13 @@ import {
   contentContainerStyle,
 } from '../globalStyles.js';
 
-const loginUser = async (email, password) => {
+const loginUser = async (name, email) => {
   const requestOptions = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
+      name: name,
       mail: email,
-      pass: password,
     }),
   };
   const response = await fetch(
@@ -38,33 +38,9 @@ const loginUser = async (email, password) => {
     requestOptions,
   );
   const data = await response.json();
-  // console.log(data);
-  return data.success === true;
-};
-
-// Function to get permission for location
-const requestLocationPermission = async () => {
-  try {
-    const granted = await PermissionsAndroid.request(
-      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      {
-        title: 'Geolocation Permission',
-        message: 'Can we access your location?',
-        buttonNeutral: 'Ask Me Later',
-        buttonNegative: 'Cancel',
-        buttonPositive: 'OK',
-      },
-    );
-    console.log('granted', granted);
-    if (granted === 'granted') {
-      console.log('You can use Geolocation');
-      return true;
-    } else {
-      console.log('You cannot use Geolocation');
-      return false;
-    }
-  } catch (err) {
-    return false;
+  if (data.success === true) {
+    console.log(data.data);
+    return true;
   }
 };
 
@@ -175,12 +151,11 @@ const Login = ({navigation}) => {
 
           <Buttons
             btn_text={'Login'}
-            on_press={async () => {
-              console.log('Clicked Login');
-              getLocation();
-              const success = await loginUser(email, password);
+            on_press={() => {
+              const success = loginUser(email, password);
               if (success) {
                 navigation.navigate('Home');
+                console.log('Clicked Login');
               }
             }}
           />
@@ -218,6 +193,7 @@ const Login = ({navigation}) => {
               color: '#333',
             }}
             onPress={() => {
+              loginUser(email, password);
               navigation.navigate('SignUp');
             }}>
             SignUp
