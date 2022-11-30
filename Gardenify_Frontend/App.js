@@ -2,7 +2,14 @@ import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import {Splash, Onboarding, Login, SignUp, MainContainer} from './pages';
+import {
+  Splash,
+  Onboarding,
+  Login,
+  SignUp,
+  MainContainer,
+  QRCode,
+} from './pages';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -15,6 +22,7 @@ const App = () => {
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="MainContainer" component={MainContainer} />
+        <Stack.Screen name="QRCode" component={QRCode} />
       </Stack.Navigator>
     </NavigationContainer>
   );

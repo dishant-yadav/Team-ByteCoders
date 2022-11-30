@@ -11,10 +11,12 @@ const getPlantByID = async id => {
   return resJSON;
 };
 
-export default class PlantInfo extends Component {
+export default class QRCode extends Component {
   async onSuccess(e) {
     // const url = `https://gardenify.herokuapp.com/plants/${e.data}`;
-    const data = await getPlantByID(e.data);
+    console.log(true);
+    Linking.openURL('https://www.google.com');
+    // const data = await getPlantByID(e.data);
   }
 
   render() {
@@ -25,7 +27,7 @@ export default class PlantInfo extends Component {
         topContent={
           <Text style={styles.centerText}>
             Scan the
-            <Text style={styles.textBold}>QR Code</Text> placed near the plant
+            <Text style={styles.textBold}> QR Code</Text> placed near the plant
             and assess the Plant's Health
           </Text>
         }
