@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Splash, Onboarding, Login, SignUp, Home} from './pages';
+
+import {Splash, Onboarding, Login, SignUp, MainContainer} from './pages';
 
 const App = () => {
   const Stack = createNativeStackNavigator();
@@ -13,7 +14,7 @@ const App = () => {
         <Stack.Screen name="Onboarding" component={Onboarding} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="SignUp" component={SignUp} />
-        <Stack.Screen name="Home" component={Home} />
+        <Stack.Screen name="MainContainer" component={MainContainer} />
       </Stack.Navigator>
     </NavigationContainer>
   );

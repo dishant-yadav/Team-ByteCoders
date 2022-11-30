@@ -8,10 +8,11 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
-  PermissionsAndroid
+  PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Geolocation from 'react-native-geolocation-service';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Buttons from '../components/Buttons.js';
 import {
@@ -24,13 +25,13 @@ import {
   contentContainerStyle,
 } from '../globalStyles.js';
 
-const loginUser = async (name, email) => {
+const loginUser = async (email, pass) => {
   const requestOptions = {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({
-      name: name,
       mail: email,
+      pass: pass,
     }),
   };
   const response = await fetch(
@@ -38,16 +39,64 @@ const loginUser = async (name, email) => {
     requestOptions,
   );
   const data = await response.json();
+  console.log(data);
   if (data.success === true) {
     console.log(data.data);
     return true;
   }
 };
 
+// Function to get permission for location
+const requestLocationPermission = async () => {
+  try {
+    const granted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+      {
+        title: 'Geolocation Permission',
+        message: 'Can we access your location?',
+        buttonNeutral: 'Ask Me Later',
+        buttonNegative: 'Cancel',
+        buttonPositive: 'OK',
+      },
+    );
+    console.log('granted', granted);
+    if (granted === 'granted') {
+      console.log('You can use Geolocation');
+      return true;
+    } else {
+      console.log('You cannot use Geolocation');
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+};
+
+// const storeCoordinates = async () => {
+//   try {
+//     await AsyncStorage.setItem('location', JSON.stringify(coordinates));
+//     console.log('Data Saved');
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+
+// const getCoordinates = async () => {
+//   try {
+//     const data = await AsyncStorage.getItem('location');
+//     const coordinates = JSON.parse(data);
+//     console.log(coordinates);
+//     return coordinates;
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
+let coords = [];
+
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [location, setLocation] = useState(false);
+  const [location, setLocation] = useState([]);
 
   // function to check permissions and get Location
   const getLocation = () => {
@@ -57,19 +106,21 @@ const Login = ({navigation}) => {
       if (res) {
         Geolocation.getCurrentPosition(
           position => {
-            console.log(position);
-            setLocation(position);
+            setLocation([position.coords.latitude, position.coords.longitude]);
+            console.log(location);
+            return location;
+            // console.log('location got');
           },
           error => {
             // See error code charts below.
             console.log(error.code, error.message);
-            setLocation(false);
+            setLocation([]);
           },
           {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
         );
+        // console.log(location);
       }
     });
-    console.log(location);
   };
 
   return (
@@ -151,11 +202,12 @@ const Login = ({navigation}) => {
 
           <Buttons
             btn_text={'Login'}
-            on_press={() => {
-              const success = loginUser(email, password);
+            on_press={async () => {
+              console.log('Clicked Login');
+              const success = await loginUser(email, password);
               if (success) {
-                navigation.navigate('Home');
-                console.log('Clicked Login');
+                console.log(getLocation());
+                navigation.navigate('MainContainer');
               }
             }}
           />

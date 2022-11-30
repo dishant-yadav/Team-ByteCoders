@@ -4,12 +4,11 @@ export const color3 = '#4C8CA0';
 export const color4 = '#466FA1';
 export const white = '#FFFFFF';
 export const black = '#000000';
+export const grey = '#A9A9A9';
 
-export const backgroundColor1 = '#fff';
+export const backgroundColor1 = '#FFFFFF';
 export const backgroundColor2 = '#E1E8FF';
 export const backgroundColor3 = '#F0F0F0';
-
-export const grey = '#a9a9a9';
 
 export const shadow = {
   shadowColor: '#000',
@@ -75,4 +74,4 @@ export const contentContainerStyle = {
   alignItems: 'center',
 };
 
-export const textStyle = { fontSize: 32, color: black, fontBold };
+export const textStyle = {fontSize: 32, color: black, fontBold};
