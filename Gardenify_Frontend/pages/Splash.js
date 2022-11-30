@@ -6,13 +6,18 @@ import {
   StatusBar,
   Image,
   ScrollView,
-} from 'react-native';  
-import scrollViewStyle, {color2, fontBlack, white} from './../globalStyles';
+} from 'react-native';
+import scrollViewStyle, {
+  black,
+  color2,
+  fontBlack,
+  white,
+} from './../globalStyles';
 
 const Splash = ({navigation}) => {
   setTimeout(() => {
     navigation.replace('Onboarding');
-  }, 3000);
+  }, 1000);
   return (
     <ScrollView style={scrollViewStyle}>
       <StatusBar
@@ -20,18 +25,25 @@ const Splash = ({navigation}) => {
         hidden={false}
         backgroundColor={color2}
       />
-      <Image
-        source={require('../assets/images/icon.png')}
-        style={{width: 50, height: 50}}
-      />
-      <Text
+      <View
         style={{
-          ...fontBlack,
-          fontSize: 30,
-          color: white,
+          justifyContent: 'center',
+          alignItems: 'center',
         }}>
-        Gardenify
-      </Text>
+        <Image
+          source={require('../assets/images/icon.png')}
+          style={{width: 50, height: 50}}
+        />
+        <Text
+          style={{
+            ...fontBlack,
+            fontSize: 48,
+            color: black,
+            marginTop: 400,
+          }}>
+          Gardenify
+        </Text>
+      </View>
     </ScrollView>
   );
 };

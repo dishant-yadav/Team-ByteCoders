@@ -22,8 +22,25 @@ import {
   contentContainerStyle,
 } from '../globalStyles.js';
 
-const SignUp = ({navigation}) => {
-  const [name, setName] = useState('');
+const loginUser = async (email, password) => {
+  const requestOptions = {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      mail: email,
+      pass: password,
+    }),
+  };
+  const response = await fetch(
+    'https://gardenify.herokuapp.com/signin',
+    requestOptions,
+  );
+  const data = await response.json();
+  // console.log(data);
+  return data.success === true;
+};
+
+const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -69,34 +86,13 @@ const SignUp = ({navigation}) => {
               borderRadius: 10,
               height: 60,
               paddingLeft: 20,
-            }}>
-            <Icon name="envelope-o" size={22} color="#818181" />
-            <TextInput
-              onChangeText={name => setName(name)}
-              value={name}
-              style={styles.input}
-              placeholder="Enter Name"
-              placeholderTextColor="#818181"
-            />
-          </View>
-
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#ededed',
-              width: '95%',
-              borderRadius: 10,
-              height: 60,
-              paddingLeft: 20,
               marginTop: 30,
             }}>
             <Icon name="envelope-o" size={22} color="#818181" />
             <TextInput
               onChangeText={email => setEmail(email)}
               value={email}
-              style={styles.input}
+              style={styles.inputStyle}
               placeholder="Enter Email"
               placeholderTextColor="#818181"
             />
@@ -118,29 +114,23 @@ const SignUp = ({navigation}) => {
             <TextInput
               onChangeText={password => setPassword(password)}
               value={password}
-              style={styles.input}
+              style={styles.inputStyle}
               placeholder="Enter Password"
               secureTextEntry={true}
               placeholderTextColor="#818181"
             />
           </View>
 
-          <View style={{width: '95%', marginBottom: 30}}>
-            <Text
-              style={{
-                fontSize: 17,
-                ...fontSemiBold,
-                color: '#818181',
-                alignSelf: 'flex-end',
-                paddingTop: 10,
-              }}>
-              Forgot Password?
-            </Text>
-          </View>
-
           <Buttons
             btn_text={'Login'}
-            on_press={() => console.log('Clicked Sign Up')}
+            on_press={async () => {
+              console.log('Clicked Login');
+              const success = await loginUser(email, password);
+              // console.log(success);
+              if (success) {
+                navigation.navigate('Home');
+              }
+            }}
           />
         </View>
       </View>
@@ -175,7 +165,9 @@ const SignUp = ({navigation}) => {
               ...fontSemiBold,
               color: '#333',
             }}
-            onPress={() => navigation.navigate('SignUp')}>
+            onPress={() => {
+              navigation.navigate('SignUp');
+            }}>
             SignUp
           </Text>
         </View>
@@ -184,30 +176,16 @@ const SignUp = ({navigation}) => {
   );
 };
 
-export default SignUp;
+export default Login;
 
 const styles = StyleSheet.create({
-  input: {
+  inputStyle: {
     position: 'relative',
     height: '100%',
     width: '90%',
     ...fontBold,
     paddingLeft: 20,
     color: black,
-  },
-  social_btn: {
-    height: 55,
-    width: '100%',
-    borderWidth: 1,
-    borderRadius: 10,
-    borderColor: '#ddd',
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  social_img: {
-    width: 25,
-    height: 25,
-    marginLeft: 15,
+    fontSize: 22,
   },
 });

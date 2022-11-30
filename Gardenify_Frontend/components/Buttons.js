@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import {color1, color2, color3, fontBlack} from '../globalStyles';
+import {color1, color2, color3, fontBlack, fontBold} from '../globalStyles';
 
 const Buttons = ({on_press, btn_text}) => {
   return (
@@ -10,17 +10,17 @@ const Buttons = ({on_press, btn_text}) => {
         width: '95%',
         backgroundColor: color1,
         height: 50,
-        marginBottom: 30,
+        marginVertical: 30,
         borderRadius: 10,
       }}
       onPress={on_press}>
       <Text
         style={{
-          fontSize: 15,
+          fontSize: 22,
           letterSpacing: 1.5,
           textAlign: 'center',
           position: 'relative',
-          ...fontBlack,
+          ...fontBold,
           color: '#FFFFFF',
         }}>
         {btn_text}
