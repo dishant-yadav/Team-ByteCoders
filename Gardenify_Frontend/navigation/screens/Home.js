@@ -9,7 +9,10 @@ import {
   FlatList,
   ActivityIndicator,
   TouchableOpacity,
+  Linking,
+  Button,
 } from 'react-native';
+import Buttons from '../../components/Buttons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {Card} from 'react-native-paper';
 import {
@@ -449,24 +452,19 @@ const Home = ({navigation}) => {
       </View>
 
       <View>
-        <Text
-          style={textStyle}
-          onPress={() => {
-            setData(value);
-            setLoading(false);
-          }}>
-          Nearby Plants
-        </Text>
-      </View>
-      {loading ? (
-        <ActivityIndicator size={100} color={color1} style={{marginTop: 80}} />
-      ) : (
+        <View style={{width: '90%', marginLeft:40}}>
+          <Buttons
+            btn_text={'Get Nearby Plants'}
+            on_press={() => setData(value)}
+          />
+        </View>
+
         <FlatList
           data={data}
           renderItem={renderItem}
           keyExtractor={(item, index) => 'key' + index}
         />
-      )}
+      </View>
     </ScrollView>
   );
 };
