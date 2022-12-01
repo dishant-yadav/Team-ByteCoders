@@ -4,3 +4,4 @@ export {default as SignUp} from './SignUp';
 export {default as Onboarding} from './Onboarding';
 export {default as MainContainer} from './MainContainer';
 export {default as QRCode} from './QRCode';
+export {default as QR} from './QR';

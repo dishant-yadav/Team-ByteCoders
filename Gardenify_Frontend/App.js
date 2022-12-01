@@ -9,6 +9,7 @@ import {
   SignUp,
   MainContainer,
   QRCode,
+  QR,
 } from './pages';
 
 const App = () => {
@@ -23,6 +24,7 @@ const App = () => {
         <Stack.Screen name="SignUp" component={SignUp} />
         <Stack.Screen name="MainContainer" component={MainContainer} />
         <Stack.Screen name="QRCode" component={QRCode} />
+        <Stack.Screen name="QR" component={QR} />
       </Stack.Navigator>
     </NavigationContainer>
   );

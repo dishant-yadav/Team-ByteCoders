@@ -13,7 +13,6 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Geolocation from 'react-native-geolocation-service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import Buttons from '../components/Buttons.js';
 import {
   black,
@@ -101,7 +100,6 @@ const storeCoordinates = async coordinates => {
 //     console.log(error);
 //   }
 // };
-let coords = [];
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
