@@ -46,7 +46,7 @@ const loginUser = async (email, pass) => {
     }),
   };
   const response = await fetch(
-    'http://192.168.124.186:4000/signin/',
+    'https://gardenify.herokuapp.com/signin/',
     requestOptions,
   );
   const data = await response.json();
@@ -143,142 +143,141 @@ const Login = ({navigation}) => {
   };
 
   return (
-  
-      <ScrollView style={scrollViewStyle}>
-        <StatusBar barStyle="dark-content" backgroundColor={white} />
+    <ScrollView style={scrollViewStyle}>
+      <StatusBar barStyle="dark-content" backgroundColor={white} />
+      <View
+        style={{
+          flex: 2,
+          flexDirection: 'column',
+          backgroundColor: '#fff',
+          paddingTop: 40,
+          paddingHorizontal: '3%',
+        }}>
         <View
           style={{
-            flex: 2,
             flexDirection: 'column',
-            backgroundColor: '#fff',
-            paddingTop: 40,
-            paddingHorizontal: '3%',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingBottom: 10,
           }}>
+          <Text
+            style={{
+              ...fontBold,
+              fontSize: 40,
+              color: color1,
+              paddingBottom: 10,
+              fontWeight: 'bold',
+            }}>
+            Login
+          </Text>
+
+          <Image
+            source={require('./../assets/images/logo.png')}
+            style={{width: 200, height: 200, borderRadius: 20, marginTop: 20}}
+          />
+        </View>
+
+        <View style={{flexDirection: 'column'}}>
           <View
             style={{
-              flexDirection: 'column',
+              flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              paddingBottom: 10,
+              backgroundColor: '#ededed',
+              width: '100%',
+              borderRadius: 10,
+              height: 60,
+              paddingLeft: 20,
+              marginTop: 30,
             }}>
-            <Text
-              style={{
-                ...fontBold,
-                fontSize: 40,
-                color: color1,
-                paddingBottom: 10,
-                fontWeight: 'bold',
-              }}>
-              Login
-            </Text>
-
-            <Image
-              source={require('./../assets/images/logo.png')}
-              style={{width: 200, height: 200, borderRadius: 20, marginTop: 20}}
+            <Icon name="envelope-o" size={26} color="#818181" />
+            <TextInput
+              onChangeText={email => setEmail(email)}
+              value={email}
+              style={styles.inputStyle}
+              placeholder="Enter Email"
+              placeholderTextColor="#818181"
             />
           </View>
 
-          <View style={{flexDirection: 'column'}}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#ededed',
-                width: '100%',
-                borderRadius: 10,
-                height: 60,
-                paddingLeft: 20,
-                marginTop: 30,
-              }}>
-              <Icon name="envelope-o" size={26} color="#818181" />
-              <TextInput
-                onChangeText={email => setEmail(email)}
-                value={email}
-                style={styles.inputStyle}
-                placeholder="Enter Email"
-                placeholderTextColor="#818181"
-              />
-            </View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              backgroundColor: '#ededed',
+              width: '100%',
+              borderRadius: 10,
+              height: 60,
+              paddingLeft: 20,
+              marginTop: 30,
+            }}>
+            <Icon name="lock" size={26} color="#818181" />
+            <TextInput
+              onChangeText={password => setPassword(password)}
+              value={password}
+              style={styles.inputStyle}
+              placeholder="Enter Password"
+              secureTextEntry={true}
+              placeholderTextColor="#818181"
+            />
+          </View>
 
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'center',
-                alignItems: 'center',
-                backgroundColor: '#ededed',
-                width: '100%',
-                borderRadius: 10,
-                height: 60,
-                paddingLeft: 20,
-                marginTop: 30,
-              }}>
-              <Icon name="lock" size={26} color="#818181" />
-              <TextInput
-                onChangeText={password => setPassword(password)}
-                value={password}
-                style={styles.inputStyle}
-                placeholder="Enter Password"
-                secureTextEntry={true}
-                placeholderTextColor="#818181"
-              />
-            </View>
-
-            <View style={{width: '110%'}}>
-              <Buttons
-                btn_text={'Login'}
-                on_press={async () => {
-                  console.log('Clicked Login');
-                  const success = await loginUser(email, password);
-                  if (success) {
-                    console.log(getLocation());
-                    navigation.replace('MainContainer');
-                  }
-                }}
-              />
-            </View>
+          <View style={{width: '110%'}}>
+            <Buttons
+              btn_text={'Login'}
+              on_press={async () => {
+                console.log('Clicked Login');
+                const success = await loginUser(email, password);
+                if (success) {
+                  console.log(getLocation());
+                  navigation.replace('MainContainer');
+                }
+              }}
+            />
           </View>
         </View>
+      </View>
 
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#fff',
+          flexDirection: 'column',
+          paddingHorizontal: '3%',
+        }}>
         <View
           style={{
             flex: 1,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'flex-end',
             backgroundColor: '#fff',
-            flexDirection: 'column',
-            paddingHorizontal: '3%',
+            marginBottom: 40,
           }}>
-          <View
+          <Text
             style={{
-              flex: 1,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'flex-end',
-              backgroundColor: '#fff',
-              marginBottom: 40,
+              ...fontMedium,
+              fontSize: 17,
+              color: '#818181',
             }}>
-            <Text
-              style={{
-                ...fontMedium,
-                fontSize: 17,
-                color: '#818181',
-              }}>
-              Don't have a account?
-            </Text>
-            <Text
-              style={{
-                fontSize: 18,
-                ...fontSemiBold,
-                color: '#333',
-              }}
-              onPress={() => {
-                loginUser(email, password);
-                navigation.navigate('SignUp');
-              }}>
-              SignUp
-            </Text>
-          </View>
+            Don't have a account?
+          </Text>
+          <Text
+            style={{
+              fontSize: 18,
+              ...fontSemiBold,
+              color: '#333',
+            }}
+            onPress={() => {
+              loginUser(email, password);
+              navigation.navigate('SignUp');
+            }}>
+            SignUp
+          </Text>
         </View>
-      </ScrollView>
+      </View>
+    </ScrollView>
   );
 };
 

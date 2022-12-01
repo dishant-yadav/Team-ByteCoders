@@ -35,7 +35,7 @@ const signUpUser = async (name, email, pass, lat, lon) => {
     }),
   };
   const response = await fetch(
-    'http://192.168.124.186:4000/signup/',
+    'https://gardenify.herokuapp.com/signup/',
     requestOptions,
   );
   const data = await response.json();
@@ -215,6 +215,6 @@ const styles = StyleSheet.create({
     ...fontBold,
     paddingLeft: 20,
     color: black,
-    fontSize: 22,
+    fontSize: 26,
   },
 });
