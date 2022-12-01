@@ -54,3 +54,48 @@ const auth = getAuth();
 
 // Initialize Cloud Firestore and get a reference to the service
 const db = getFirestore(app);
+
+// -----Member functions-----------
+function calculateDateRightNow() {
+  // Compute date and split into DD, MM, YYYY
+  const d = new Date();
+  // Format the date data to be parsed by fb and return
+  const dateFormatted = Timestamp.fromDate(new Date(d));
+  return dateFormatted;
+}
+
+// ------AUTH FUNCTIONS------
+
+// signup user
+module.exports.signUp = async function (email, password) {
+  return await createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      // ...
+      return user;
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // ..
+      return errorCode;
+    });
+};
+
+// signin user
+module.exports.signIn = async function (email, password) {
+  return await signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      user = userCredential.user;
+      // ...
+      return user;
+    })
+    .catch((error) => {
+      errorCode = error.code;
+      const errorMessage = error.message;
+      // ...
+      return errorCode;
+    });
+};
