@@ -54,9 +54,8 @@ const getLocation = async () => {
 
 const getNearbyPlants = async () => {
   // const [lat, lon] = await getLocation();
-  const [lat, lon] = [5, 5.05];
-  const url = `https://gardenify.herokuapp.com/plants/latitude=${lat}&longitude=${lon}`;
-  // console.log(url);
+  const [lat, lon] = [20.2775, 85.7774];
+  const url = `http://192.168.124.186:4000/plants/latitude=${lat}&longitude=${lon}`;
   const res = await fetch(url);
   const resJSON = await res.json();
   console.log(resJSON);
@@ -65,11 +64,9 @@ const getNearbyPlants = async () => {
 
 const Item = ({name, lat, lon, status}, index) => (
   <TouchableOpacity style={styles.item} onPress={() => getPlantById(index)}>
-    <View>
+    <View style={{justifyContent:"flex-start"}}>
       <Text style={styles.textStyle1}>Name : {name}</Text>
       <Text style={styles.textStyle1}>Status : {status}</Text>
-    </View>
-    <View>
       <Text style={styles.textStyle1}>Latitude : {lat}</Text>
       <Text style={styles.textStyle1}>Longitude : {lon}</Text>
     </View>
@@ -108,29 +105,26 @@ const Home = ({navigation}) => {
     <ScrollView style={{backgroundColor: white}}>
       <StatusBar barStyle="dark-content" backgroundColor={white} />
       <View style={styles.headerStyle}>
-        <Image source={require('./../../assets/images/icon.png')} />
-        <Text style={styles.headerText}>Gardenify</Text>
-      </View>
-      <View
-        style={{
-          borderWidth: 1,
-          borderColor: color2,
-          marginHorizontal: 20,
-          height: 200,
-          marginVertical: 10,
-          borderRadius: 20,
-          ...shadow2,
-        }}>
-        <Card
-          onPress={() => navigation.navigate("QRCode")}
+        <Image
+          source={require('../../assets/images/logo.png')}
           style={{
-            height: 200,
-            backgroundColor: color2,
-            borderRadius: 20,
-          }}>
-          <Text style={styles.paragraph}>Scan QR Code and Earn Rewards</Text>
-        </Card>
+            width: 50,
+            height: 50,
+            borderBottomLeftRadius: 10,
+            borderTopLeftRadius: 10,
+          }}
+        />
+        <Image
+          source={require('../../assets/images/gardenify.png')}
+          style={{
+            width: 200,
+            height: 50,
+            borderBottomRightRadius: 10,
+            borderTopRightRadius: 10,
+          }}
+        />
       </View>
+
       <View>
         <Text style={textStyle}>Nearby Plants</Text>
       </View>
@@ -149,15 +143,12 @@ const Home = ({navigation}) => {
 
 const styles = StyleSheet.create({
   headerStyle: {
+    paddingLeft: 150,
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     marginVertical: 20,
-  },
-  headerText: {
-    color: color2,
-    fontSize: 40,
-    ...fontBold,
+    width: 250,
   },
   paragraph: {
     fontSize: 30,

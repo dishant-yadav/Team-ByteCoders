@@ -35,7 +35,7 @@ const signUpUser = async (name, email, pass, lat, lon) => {
     }),
   };
   const response = await fetch(
-    'https://gardenify.herokuapp.com/signup',
+    'http://192.168.124.186:4000/signup/',
     requestOptions,
   );
   const data = await response.json();
@@ -55,9 +55,7 @@ const SignUp = ({navigation}) => {
   const [lon, setLon] = useState(20);
 
   return (
-    <ScrollView
-      style={scrollViewStyle}
-      contentContainerStyle={contentContainerStyle}>
+    <ScrollView style={scrollViewStyle}>
       <StatusBar barStyle="dark-content" backgroundColor={white} />
       <View
         style={{
@@ -69,7 +67,7 @@ const SignUp = ({navigation}) => {
         }}>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             paddingBottom: 10,
@@ -78,11 +76,16 @@ const SignUp = ({navigation}) => {
             style={{
               ...fontBold,
               fontSize: 32,
-              color: black,
+              fontWeight: 'bold',
+              color: color1,
               paddingBottom: 10,
             }}>
             SignUp
           </Text>
+          <Image
+            source={require('./../assets/images/logo.png')}
+            style={{width: 200, height: 200, borderRadius: 20}}
+          />
         </View>
 
         <View style={{flexDirection: 'column', paddingTop: 30}}>
@@ -92,12 +95,12 @@ const SignUp = ({navigation}) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#ededed',
-              width: '95%',
+              width: '100%',
               borderRadius: 10,
               height: 60,
               paddingLeft: 20,
             }}>
-            <Icon name="envelope-o" size={22} color="#818181" />
+            <Icon name="user" size={22} color="#818181" />
             <TextInput
               onChangeText={name => setName(name)}
               style={styles.inputStyle}
@@ -112,7 +115,7 @@ const SignUp = ({navigation}) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#ededed',
-              width: '95%',
+              width: '100%',
               borderRadius: 10,
               height: 60,
               paddingLeft: 20,
@@ -133,7 +136,7 @@ const SignUp = ({navigation}) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#ededed',
-              width: '95%',
+              width: '100%',
               borderRadius: 10,
               height: 60,
               paddingLeft: 20,
@@ -148,17 +151,18 @@ const SignUp = ({navigation}) => {
               placeholderTextColor="#818181"
             />
           </View>
-
-          <Buttons
-            btn_text={'Sign Up'}
-            on_press={() => {
-              console.log('Clicked');
-              const success = signUpUser(name, email, pass, lat, lon);
-              if (success) {
-                navigation.replace('Login');
-              }
-            }}
-          />
+          <View style={{width: '110%'}}>
+            <Buttons
+              btn_text={'Sign Up'}
+              on_press={() => {
+                console.log('Clicked');
+                const success = signUpUser(name, email, pass, lat, lon);
+                if (success) {
+                  navigation.replace('Login');
+                }
+              }}
+            />
+          </View>
         </View>
       </View>
 
