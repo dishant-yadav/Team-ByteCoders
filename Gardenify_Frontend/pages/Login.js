@@ -8,12 +8,12 @@ import {
   Image,
   TextInput,
   TouchableOpacity,
+  KeyboardAvoidingView,
   PermissionsAndroid,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Geolocation from 'react-native-geolocation-service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 import Buttons from '../components/Buttons.js';
 import {
   black,
@@ -23,6 +23,8 @@ import {
   white,
   scrollViewStyle,
   contentContainerStyle,
+  color1,
+  shadow2,
 } from '../globalStyles.js';
 
 const setID = async id => {
@@ -44,7 +46,7 @@ const loginUser = async (email, pass) => {
     }),
   };
   const response = await fetch(
-    'https://gardenify.herokuapp.com/signin',
+    'https://gardenify.herokuapp.com/signin/',
     requestOptions,
   );
   const data = await response.json();
@@ -101,7 +103,6 @@ const storeCoordinates = async coordinates => {
 //     console.log(error);
 //   }
 // };
-let coords = [];
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
@@ -142,9 +143,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <ScrollView
-      style={scrollViewStyle}
-      contentContainerStyle={contentContainerStyle}>
+    <ScrollView style={scrollViewStyle}>
       <StatusBar barStyle="dark-content" backgroundColor={white} />
       <View
         style={{
@@ -156,7 +155,7 @@ const Login = ({navigation}) => {
         }}>
         <View
           style={{
-            flexDirection: 'row',
+            flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             paddingBottom: 10,
@@ -164,15 +163,21 @@ const Login = ({navigation}) => {
           <Text
             style={{
               ...fontBold,
-              fontSize: 30,
-              color: black,
+              fontSize: 40,
+              color: color1,
               paddingBottom: 10,
+              fontWeight: 'bold',
             }}>
-            Login Screen
+            Login
           </Text>
+
+          <Image
+            source={require('./../assets/images/logo.png')}
+            style={{width: 200, height: 200, borderRadius: 20, marginTop: 20}}
+          />
         </View>
 
-        <View style={{flexDirection: 'column', paddingTop: 30}}>
+        <View style={{flexDirection: 'column'}}>
           <View
             style={{
               flexDirection: 'row',
@@ -185,7 +190,7 @@ const Login = ({navigation}) => {
               paddingLeft: 20,
               marginTop: 30,
             }}>
-            <Icon name="envelope-o" size={22} color="#818181" />
+            <Icon name="envelope-o" size={26} color="#818181" />
             <TextInput
               onChangeText={email => setEmail(email)}
               value={email}
@@ -207,7 +212,7 @@ const Login = ({navigation}) => {
               paddingLeft: 20,
               marginTop: 30,
             }}>
-            <Icon name="lock" size={22} color="#818181" />
+            <Icon name="lock" size={26} color="#818181" />
             <TextInput
               onChangeText={password => setPassword(password)}
               value={password}
@@ -286,6 +291,6 @@ const styles = StyleSheet.create({
     ...fontBold,
     paddingLeft: 20,
     color: black,
-    fontSize: 22,
+    fontSize: 26,
   },
 });

@@ -4,15 +4,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 // Screens
 import HomeScreen from './../navigation/screens/Home';
-import Details from './../navigation/screens/Details';
-import PlantInfo from './../navigation/screens/PlantInfo';
-import Activities from './../navigation/screens/Activities';
+import AddPlant from './../navigation/screens/AddPlant';
+import QRCode from './../navigation/screens/QRCode';
+import Profile from './../navigation/screens/Profile';
 
 //Screen names
 const homeName = 'Home';
-const detailsName = 'Details';
-const infoName = 'Info';
-const activitiesname = 'Activities';
+const addPlantName = 'AddPlant';
+const scanCodeName = 'Scan';
+const profileName = 'Activities';
 
 const Tab = createBottomTabNavigator();
 
@@ -51,8 +51,8 @@ function MainContainer() {
         }}
       />
       <Tab.Screen
-        name={detailsName}
-        component={Details}
+        name={addPlantName}
+        component={AddPlant}
         options={{
           headerShown: false,
           tabBarIcon: data => {
@@ -61,8 +61,8 @@ function MainContainer() {
         }}
       />
       <Tab.Screen
-        name={infoName}
-        component={PlantInfo}
+        name={scanCodeName}
+        component={QRCode}
         options={{
           headerShown: false,
           tabBarIcon: data => {
@@ -71,8 +71,8 @@ function MainContainer() {
         }}
       />
       <Tab.Screen
-        name={activitiesname}
-        component={Activities}
+        name={profileName}
+        component={Profile}
         options={{
           headerShown: false,
           tabBarIcon: data => {

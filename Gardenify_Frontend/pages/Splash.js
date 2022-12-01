@@ -10,16 +10,16 @@ import {
 import scrollViewStyle, {
   black,
   color2,
-  fontBlack,
+  fontBold,
   white,
 } from './../globalStyles';
 
 const Splash = ({navigation}) => {
   setTimeout(() => {
-    navigation.replace('MainContainer');
-  }, 500);
+    navigation.replace('Login');
+  }, 2500);
   return (
-    <ScrollView style={scrollViewStyle}>
+    <ScrollView style={[scrollViewStyle, {backgroundColor: color2}]}>
       <StatusBar
         barStyle="light-content"
         hidden={false}
@@ -27,20 +27,16 @@ const Splash = ({navigation}) => {
       />
       <View
         style={{
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
+          marginTop: 110,
         }}>
         <Image
-          source={require('../assets/images/icon.png')}
-          style={{width: 50, height: 50}}
+          source={require('../assets/images/logo.png')}
+          style={{width: 250, height: 250, borderRadius: 30, marginTop: 40}}
         />
-        <Text
-          style={{
-            ...fontBlack,
-            fontSize: 48,
-            color: black,
-            marginTop: 400,
-          }}>
+        <Text style={{fontSize: 54, color: white, ...fontBold, marginTop: 65}}>
           Gardenify
         </Text>
       </View>

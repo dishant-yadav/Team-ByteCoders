@@ -11,7 +11,7 @@ const getPlantByID = async id => {
   return resJSON;
 };
 
-export default class PlantInfo extends Component {
+export default class QRCode extends Component {
   async onSuccess(e) {
     // const url = `https://gardenify.herokuapp.com/plants/${e.data}`;
     const data = await getPlantByID(e.data);

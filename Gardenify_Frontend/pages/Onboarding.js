@@ -33,7 +33,7 @@ const Onboarding = ({navigation}) => {
             backgroundColor: '#fff',
           }}>
           <Image
-            source={require('../assets/images/finalLogo.svg')}
+            source={require('../assets/images/logo.png')}
             style={{flex: 1, width: '50%'}}
           />
           <Text
