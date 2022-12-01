@@ -60,7 +60,7 @@ io.on('connection', (socket) => {
   });
   // socket emmiters
   // --------MIDDLEWARES----------------
-  
+
   // for parsing application/json
   app.use(json());
   // // for parsing application/x-www-form-urlencoded
@@ -153,7 +153,6 @@ io.on('connection', (socket) => {
     }
   });
 
-
   // PLANT
   // get plant details
   app.get('/plant/:id', async (req, res) => {
@@ -194,3 +193,50 @@ io.on('connection', (socket) => {
       res.json(data);
     }
   });
+
+  // add a new plant
+  app.post('/plant', async (req, res) => {
+    const { ownerID, latitude, longitude, image, name } = req.body;
+
+    const lat = Number(latitude);
+    const lng = Number(longitude);
+    if (
+      lat == null ||
+      lng == null ||
+      lat > 90 ||
+      lng > 180 ||
+      lat < -90 ||
+      lng < -180
+    ) {
+      res.json({ data: 'invalid-coordinates', success: false });
+    } else {
+      createNewPlant(ownerID, lat, lng, image, name)
+        .then(async (data) => {
+          if (data.data.id) {
+            // get nearby users of the plant
+            const nearbyUsers = await getNearbyUsers(lat, lng);
+            // notify nearby users that a new plant has been added.
+            nearbyUsers.map((val) => {
+              socket.to(val.id).emit('new-plant', data.data.id);
+            });
+            const d = await updatePlantArrayOfUser(ownerID, data.data.id);
+            res.json(d);
+          } else {
+            throw data;
+          }
+        })
+        .catch((err) => {
+          res.json(err);
+        });
+    }
+  });
+
+  // get plant geolocation vals
+  app.get('/plants/latitude=:lat&longitude=:long', async (req, res) => {
+    const lat = Number(req.params.lat);
+    const lng = Number(req.params.long);
+    //   const data = await getUserDetails(userID);
+    const data = await getNearbyPlants(lat, lng);
+    res.json(data);
+  });
+});
