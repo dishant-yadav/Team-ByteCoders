@@ -133,3 +133,23 @@ io.on('connection', (socket) => {
         res.json({ data: err, success: false });
       });
   });
+
+  // USER
+  // get user details
+  app.get('/user/:id', async (req, res) => {
+    const userID = req.params.id;
+    const data = await getUserDetails(userID);
+    res.json(data);
+  });
+  // update user points
+  app.put('/user/update/points/', async (req, res) => {
+    const { userID, increment } = req.body;
+    const point = Number(increment);
+    if (userID == null || point == null)
+      res.json({ data: 'error', success: false });
+    else {
+      const data = await increasePoints(userID, point);
+      res.json(data);
+    }
+  });
+
