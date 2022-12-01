@@ -153,3 +153,44 @@ io.on('connection', (socket) => {
     }
   });
 
+
+  // PLANT
+  // get plant details
+  app.get('/plant/:id', async (req, res) => {
+    const plantID = req.params.id;
+    const data = await getPlantDetails(plantID);
+    res.json(data);
+  });
+
+  // update plant status
+  app.put('/plant/update/status/', async (req, res) => {
+    const { plantID, status } = req.body;
+    if (plantID == null || status == null)
+      res.json({ data: 'error', success: false });
+    else {
+      const data = await updatePlantCurrentStatus(plantID, status);
+      res.json(data);
+    }
+  });
+  // update plant image
+  app.put('/plant/update/image/', async (req, res) => {
+    const { plantID, image } = req.body;
+    if (plantID == null || image == null)
+      res.json({ data: 'error', success: false });
+    else {
+      const data = await updatePlantImage(plantID, image);
+      res.json(data);
+    }
+  });
+
+  // update plant disease
+  app.put('/plant/update/disease/', async (req, res) => {
+    const { plantID, isDiseased } = req.body;
+    const disease = Boolean(isDiseased);
+    if (plantID == null || disease == null)
+      res.json({ data: 'error', success: false });
+    else {
+      const data = await updatePlantIDisease(plantID, isDiseased);
+      res.json(data);
+    }
+  });
